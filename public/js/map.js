@@ -921,7 +921,7 @@ function renderSidebarTambangList() {
                         ${
                             hasOverlap
                                 ? `
-                            <span class="flex-shrink-0 ml-2 px-2 py-0.5 bg-red-500/10 text-red-400 text-xs font-medium rounded-md border border-red-500/20">
+                            <span class="shrink-0 ml-2 px-2 py-0.5 bg-red-500/10 text-red-400 text-xs font-medium rounded-md border border-red-500/20">
                                 ${formatAreaValue(item.luas_overlap)} Ha
                             </span>
                         `
@@ -1380,13 +1380,13 @@ function renderOverlapChart(overlaps) {
             (slice) => `
         <div class="overlap-chart-legend-item flex items-center justify-between gap-3 rounded-xl border border-gray-700/30 bg-gray-900/35 px-3 py-2">
             <div class="flex items-center gap-3 min-w-0">
-                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:${slice.color};"></span>
+                <span class="w-3 h-3 rounded-full shrink-0" style="background:${slice.color};"></span>
                 <div class="min-w-0">
                     <p class="overlap-chart-legend-name text-sm text-gray-200 truncate">${slice.name}</p>
                     <p class="text-[11px] uppercase tracking-[0.18em]" style="color:${slice.color};">${slice.code}</p>
                 </div>
             </div>
-            <div class="text-right flex-shrink-0">
+            <div class="text-right shrink-0">
                 <p class="overlap-chart-legend-value text-sm font-semibold text-white">${slice.percentage.toFixed(1)}%</p>
                 <p class="overlap-chart-legend-subtext text-xs text-gray-500">${formatHectares(slice.total)}</p>
             </div>
@@ -1424,11 +1424,11 @@ function renderDocumentationGallery(images) {
             (url, index) => `
         <div class="gallery-slide">
             <button type="button"
-                class="gallery-trigger group relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-700/50 bg-gray-800/40"
+                class="gallery-trigger group relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-gray-700/50 bg-gray-800/40"
                 data-gallery-index="${index}">
                 <img src="${url}" alt="${t("gallery_photo", { index: index + 1 })}"
                     class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-90">
-                <div class="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-transparent to-transparent"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-gray-950/70 via-transparent to-transparent"></div>
                 <div class="absolute bottom-2 left-2 rounded-md bg-gray-950/75 px-2 py-1 text-[11px] font-medium text-white">
                     ${t("gallery_photo", { index: index + 1 })}
                 </div>
