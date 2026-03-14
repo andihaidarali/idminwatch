@@ -150,6 +150,8 @@ class GeojsonController extends Controller
                 'properties', jsonb_build_object(
                     'tambang_id', wt.id,
                     'tambang_nama', COALESCE(NULLIF(dt.nama_perusahaan, ''), wt.nomor_sk, CONCAT('Wilayah Tambang ', wt.id)),
+                    'nama_provinsi', wt.nama_provinsi,
+                    'jenis_tambang', wt.jenis_tambang,
                     'kawasan_fungsi', kh.{$fungsiColumn},
                     'luas_overlap_ha', ROUND(
                         (ST_Area(ix.geom::geography) / 10000.0)::numeric,

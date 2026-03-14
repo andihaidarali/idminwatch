@@ -788,6 +788,43 @@ function getCurrentDashboardFilters() {
     };
 }
 
+function buildMapLayerFilter() {
+    const clauses = ["all"];
+
+    if (dashboardFilters.provinsi) {
+        clauses.push([
+            "==",
+            ["coalesce", ["get", "nama_provinsi"], ""],
+            dashboardFilters.provinsi,
+        ]);
+    }
+
+    if (dashboardFilters.jenis_tambang) {
+        clauses.push([
+            "==",
+            ["coalesce", ["get", "jenis_tambang"], ""],
+            dashboardFilters.jenis_tambang,
+        ]);
+    }
+
+    return clauses.length > 1 ? clauses : null;
+}
+
+function applyMapLayerFilters() {
+    const layerFilter = buildMapLayerFilter();
+
+    [
+        "tambang-fill",
+        "tambang-outline",
+        "overlap-fill",
+        "overlap-outline",
+    ].forEach((layerId) => {
+        if (map.getLayer(layerId)) {
+            map.setFilter(layerId, layerFilter);
+        }
+    });
+}
+
 function flyToDefaultMapView() {
     const currentCenter = map.getCenter();
     const currentZoom = map.getZoom();
@@ -980,6 +1017,7 @@ async function loadDashboardFilterOptions() {
 
 function applyDashboardDataFilters() {
     dashboardFilters = getCurrentDashboardFilters();
+    applyMapLayerFilters();
 
     if (!dashboardFilters.provinsi && !dashboardFilters.jenis_tambang) {
         clearSidebarSearchInput();
@@ -1089,6 +1127,8 @@ async function loadAllLayers() {
                 "line-dasharray": [3, 2],
             },
         });
+
+        applyMapLayerFilters();
 
         // Hover effects for tambang
         map.on("mouseenter", "tambang-fill", () => {
